@@ -176,19 +176,5 @@ public class Board
     {
         return dim;
     }
-    /*
-    public static  void main(String[] args)
-    {
-        int[][] ret ={
-                {1,2,3},
-                {4,5,6},
-                {7,8,0}
-        } ;
-        Board brd = new Board(ret);
-        for (int i = 0; i < 4; i++) {
-                        System.out.println(brd.twin().toString());
-        }
-
-    }  */
+    
 }
-
