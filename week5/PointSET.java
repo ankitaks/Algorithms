@@ -1,14 +1,19 @@
-import edu.princeton.cs.algs4.*;
+
+import edu.princeton.cs.algs4.Point2D;
+import edu.princeton.cs.algs4.SET;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.RectHV;
+import java.util.LinkedList;
 public class PointSET {
+
     private SET<Point2D> set ;
     public PointSET() {
     set = new SET<>();
     }
-
     public boolean isEmpty() {
         return set.isEmpty();
     }
-
     public int size()
     {
         return set.size();
@@ -22,6 +27,8 @@ public class PointSET {
     }
     public boolean contains(Point2D p)
     {
+        if (p == null)
+            throw new IllegalArgumentException("Invalid Arg");
         return set.contains(p);
     }
     public void draw()
@@ -34,11 +41,32 @@ public class PointSET {
     }
     public  Iterable<Point2D> range(RectHV rect)
     {
-        return null;
+        if (rect == null)
+            throw new IllegalArgumentException("Invalid Arg");
+        LinkedList<Point2D> list = new LinkedList<>();
+        for (Point2D p:set)
+            if (rect.contains(p))
+                list.add(p);
+        return list;
     }
     public Point2D nearest( Point2D p)
     {
-        return  null;
+        if (p == null)
+            throw new IllegalArgumentException("Invalid Arg");
+        if (set.isEmpty())
+            return null;
+        Point2D min = new Point2D(p.x(),p.y());
+        double dist = Double.POSITIVE_INFINITY;
+        for (Point2D pt:set)
+        {
+            double cdist =  p.distanceSquaredTo(pt);
+            if (cdist <= dist)
+            {
+                dist = cdist;
+                min =  pt;
+            }
+        }
+        return min;
     }
     public static  void main(String[] args)
     {
@@ -51,5 +79,11 @@ public class PointSET {
             pnt.insert(new Point2D(x,y));
         }
         pnt.draw();
+        Point2D pt = pnt.nearest(new Point2D(0,0));
+        StdDraw.setPenColor(StdDraw.RED);
+        StdDraw.point(pt.x(),pt.y());
+        System.out.println("Terminating !! ");
     }
+
 }
+
